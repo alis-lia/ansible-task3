@@ -10,4 +10,6 @@
     - { role: apache_php, tags: [lamp, apache] }
     - { role: mariadb, tags: [lamp, mariadb] }
     - { role: phpmyadmin, tags: [lamp, phpmyadmin] }
+    - { role: samba, tags: [samba] }
+    - { role: vsftpd, tags: [ftp] }
     - { role: postgresql, tags: [postgresql] }

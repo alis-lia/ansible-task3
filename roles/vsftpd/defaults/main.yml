@@ -1,0 +1,4 @@
+vsftpd_pasv_min_port: 30000
+vsftpd_pasv_max_port: 30100
+# Solo si el servidor esta detras de NAT; vacio = no se usa
+vsftpd_pasv_address: ""
