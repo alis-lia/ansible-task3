@@ -7,4 +7,5 @@
   gather_facts: false   # no se usan facts: ahorra tiempo en cada ejecucion
   roles:
     # Cada integrante agrega aqui la linea de su rol (y borra el [] de abajo)
-    []
+
+            - { role: postgresql, tags: [postgresql] }

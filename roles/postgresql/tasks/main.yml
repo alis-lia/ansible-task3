@@ -1,0 +1,82 @@
+---
+- name: Instalar PostgreSQL y la libreria de PHP
+  community.general.zypper:
+    name: "{{ postgresql_packages }}"
+    state: present
+  notify: Reiniciar apache2 (postgresql)
+
+- name: Iniciar y habilitar PostgreSQL (la primera vez inicializa el cluster)
+  ansible.builtin.systemd:
+    name: postgresql
+    state: started
+    enabled: true
+
+- name: Asignar contrasena al usuario postgres
+  community.postgresql.postgresql_user:
+    name: postgres
+    password: "{{ postgres_password }}"
+  become_user: postgres
+  no_log: true
+
+- name: Crear usuario de la aplicacion
+  community.postgresql.postgresql_user:
+    name: "{{ pg_user }}"
+    password: "{{ pg_user_password }}"
+    state: present
+  become_user: postgres
+  no_log: true
+
+- name: Crear base de datos de la aplicacion
+  community.postgresql.postgresql_db:
+    name: "{{ pg_db }}"
+    owner: "{{ pg_user }}"
+    state: present
+  become_user: postgres
+
+- name: Generar certificado SSL autofirmado para el cifrado
+  ansible.builtin.command: >
+    openssl req -new -x509 -days 365 -nodes
+    -subj "/CN={{ inventory_hostname }}"
+    -out {{ postgresql_data_dir }}/server.crt
+    -keyout {{ postgresql_data_dir }}/server.key
+  args:
+    creates: "{{ postgresql_data_dir }}/server.crt"
+  notify: Reiniciar postgresql
+
+- name: Permisos del certificado
+  ansible.builtin.file:
+    path: "{{ postgresql_data_dir }}/{{ item.name }}"
+    owner: postgres
+    group: postgres
+    mode: "{{ item.mode }}"
+  loop:
+    - { name: server.crt, mode: "0644" }
+    - { name: server.key, mode: "0600" }
+
+- name: Escuchar en todas las interfaces y activar SSL
+  ansible.builtin.lineinfile:
+    path: "{{ postgresql_data_dir }}/postgresql.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regexp: "^#?listen_addresses", line: "listen_addresses = '*'" }
+    - { regexp: "^#?ssl =", line: "ssl = on" }
+    - { regexp: "^#?password_encryption", line: "password_encryption = scram-sha-256" }
+  notify: Reiniciar postgresql
+
+- name: Permitir conexiones remotas solo cifradas (hostssl) en pg_hba.conf
+  ansible.builtin.blockinfile:
+    path: "{{ postgresql_data_dir }}/pg_hba.conf"
+    insertbefore: BOF
+    marker: "# {mark} ANSIBLE - acceso remoto cifrado"
+    block: |
+      host    all  all  127.0.0.1/32                      scram-sha-256
+      hostssl all  all  {{ postgresql_allowed_network }}  scram-sha-256
+  notify: Reiniciar postgresql
+
+- name: Abrir PostgreSQL en el firewall
+  ansible.posix.firewalld:
+    service: postgresql
+    permanent: true
+    immediate: true
+    state: enabled
