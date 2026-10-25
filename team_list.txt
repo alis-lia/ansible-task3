@@ -2,5 +2,5 @@ Name and Surname, Group, codsis, cell phone
 Alisson Jasmin Serrano Romero, G2, 202304353, 67579005
 Anelise Mayte Rodriguez Jimenez, G1, 202201538, CELULAR
 Brayan Elvis Cordova Lopez, G2, 202303530, 93989384 
-Iris Romina Coa Barrientos, G2, 202301618, CELULAR
+Iris Romina Coa Barrientos, G2, 202301618, 60759449
 Jose Maximiliano Olivera Salazar, G2, 202301661, 71766896

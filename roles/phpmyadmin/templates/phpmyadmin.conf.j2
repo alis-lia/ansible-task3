@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+Alias /phpmyadmin {{ phpmyadmin_dir }}
+
+<Directory {{ phpmyadmin_dir }}>
+    DirectoryIndex index.php
+    Options FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>

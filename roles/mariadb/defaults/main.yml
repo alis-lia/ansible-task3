@@ -1,0 +1,4 @@
+mariadb_packages:
+  - mariadb
+  - mariadb-client
+  - python313-PyMySQL   # requerido por los modulos community.mysql

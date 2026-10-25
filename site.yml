@@ -7,5 +7,7 @@
   gather_facts: false   # no se usan facts: ahorra tiempo en cada ejecucion
   roles:
     # Cada integrante agrega aqui la linea de su rol (y borra el [] de abajo)
-
-            - { role: postgresql, tags: [postgresql] }
+    - { role: apache_php, tags: [lamp, apache] }
+    - { role: mariadb, tags: [lamp, mariadb] }
+    - { role: phpmyadmin, tags: [lamp, phpmyadmin] }
+    - { role: postgresql, tags: [postgresql] }
