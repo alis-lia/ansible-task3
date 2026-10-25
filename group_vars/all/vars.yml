@@ -1,0 +1,25 @@
+# Variables comunes. Las contrasenas se leen del vault (vault.yml cifrado).
+
+# Conexion (aqui y no en el inventario, para que hosts.yml solo tenga IPs)
+ansible_user: root
+ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+# MariaDB
+mariadb_socket: /run/mysql/mysql.sock
+mariadb_root_password: "{{ vault_mariadb_root_password }}"
+mariadb_db: aso_db
+mariadb_user: aso_user
+mariadb_user_password: "{{ vault_mariadb_user_password }}"
+
+# phpMyAdmin
+phpmyadmin_blowfish_secret: "{{ vault_phpmyadmin_blowfish_secret }}"
+
+# Samba / FTP (mismo usuario de sistema)
+samba_user: alumno
+samba_password: "{{ vault_samba_password }}"
+
+# PostgreSQL
+postgres_password: "{{ vault_postgres_password }}"
+pg_user: aso_pg
+pg_user_password: "{{ vault_pg_user_password }}"
+pg_db: aso_pgdb

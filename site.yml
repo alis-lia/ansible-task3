@@ -1,0 +1,10 @@
+---
+# Tareas 3 y 5 - ASO G2
+# Ejecutar: ansible-playbook site.yml -k --ask-vault-pass
+- name: Despliegue remoto LAMP + Samba + FTP + PostgreSQL en openSUSE Leap 16.0
+  hosts: servidores
+  become: true
+  gather_facts: false   # no se usan facts: ahorra tiempo en cada ejecucion
+  roles:
+    # Cada integrante agrega aqui la linea de su rol (y borra el [] de abajo)
+    []

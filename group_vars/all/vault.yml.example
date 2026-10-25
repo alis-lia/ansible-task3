@@ -1,0 +1,10 @@
+# PLANTILLA. Copiala a vault.yml, cambia los valores y cifrala:
+#   cp group_vars/all/vault.yml.example group_vars/all/vault.yml
+#   ansible-vault encrypt group_vars/all/vault.yml
+vault_mariadb_root_password: "CambiaEsto_Root123"
+vault_mariadb_user_password: "CambiaEsto_User123"
+# Debe tener exactamente 32 caracteres:
+vault_phpmyadmin_blowfish_secret: "Cambia32CaracteresExactosAqui123"
+vault_samba_password: "CambiaEsto_Samba123"
+vault_postgres_password: "CambiaEsto_Postgres123"
+vault_pg_user_password: "CambiaEsto_PgUser123"

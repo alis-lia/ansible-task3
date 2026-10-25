@@ -1,0 +1,2 @@
+# Evita saltos de linea de Windows (CRLF) que rompen YAML y plantillas
+* text=auto eol=lf

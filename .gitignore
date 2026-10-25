@@ -1,0 +1,3 @@
+# Nunca subir la contrasena del vault en texto plano
+.vault_pass
+*.retry
