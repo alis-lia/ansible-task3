@@ -6,7 +6,7 @@
 
 a) REPOSITORIO GITHUB
 ---------------------
-https://github.com/alis-lia/ansible-task3
+https://github.com/alis-lia/ansible-tasks-3-4-5
 (Compartido con gcussi@yahoo.com)
 
 b) PASOS PARA EJECUTAR EL PROYECTO
@@ -18,8 +18,8 @@ Requisitos:
     root habilitado y acceso a internet.
 
 1. Clonar el repositorio:
-     git clone https://github.com/alis-lia/ansible-task3.git
-     cd ansible-task3
+     git clone https://github.com/alis-lia/ansible-tasks-3-4-5.git
+     cd ansible-tasks-3-4-5
 
 2. Configurar el archivo hosts: poner la IP del DESTINO en
      inventory/hosts.yml   (campo ansible_host)
