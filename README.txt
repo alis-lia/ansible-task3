@@ -1,5 +1,6 @@
 =====================================================================
- ASO - Grupo 2 - Tareas 3, 4 y 5
+ ASO - Grupo 1 y 2 - Tareas 3, 4 y 5
+ Grupo de Entrega - 8
  Despliegue remoto LAMP + phpMyAdmin + Samba + FTP + PostgreSQL
  con Ansible (roles) sobre openSUSE Leap 16.0
 =====================================================================
