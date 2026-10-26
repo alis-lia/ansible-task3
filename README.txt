@@ -15,8 +15,14 @@ b) PASOS PARA EJECUTAR EL PROYECTO
 Requisitos:
   - CONTROL: openSUSE Leap 16.0 con ansible, sshpass y git
         zypper in -y ansible sshpass git
+    Solo si al ejecutar aparece un error de modulo no encontrado
+    (por ejemplo, en Ubuntu/WSL con ansible-core), instalar las colecciones:
+        ansible-galaxy collection install community.general community.mysql community.postgresql ansible.posix
   - DESTINO: openSUSE Leap 16.0 LIMPIO (sin aplicaciones), con SSH para
     root habilitado y acceso a internet.
+    Si no esta habilitado, ejecutar en el DESTINO:
+        echo "PermitRootLogin yes" > /etc/ssh/sshd_config.d/root.conf
+        systemctl enable --now sshd && systemctl restart sshd
 
 1. Clonar el repositorio:
      git clone https://github.com/alis-lia/ansible-tasks-3-4-5.git
@@ -43,6 +49,9 @@ Verificacion (desde otra maquina de la red):
    - FTP:          ftp IP_DESTINO                 (usuario alumno)
    - PostgreSQL:   psql "host=IP_DESTINO dbname=aso_pgdb user=aso_pg sslmode=require"
 
+Las contrasenas de los servicios estan en el vault:
+  ansible-vault view group_vars/all/vault.yml
+
 Nota: si Ansible avisa que ignora ansible.cfg por estar en un directorio
 con permisos de escritura para todos, ejecutar: chmod 755 .
 
@@ -61,6 +70,9 @@ roles/
   vsftpd/                Tarea 3: FTP (plantilla vsftpd.conf)
   postgresql/            Tarea 5: PostgreSQL, php8-pgsql, usuario, base,
                                   conexion remota cifrada (SSL)
+
+Tarea 4: repositorio en GitHub; plantillas en roles/*/templates
+           (smb.conf.j2, vsftpd.conf.j2, config.inc.php.j2, ...)
 
 MEJORAS APLICADAS
 -----------------
