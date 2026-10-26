@@ -1,4 +1,11 @@
 ---
+- name: Instalar herramientas para descomprimir (no vienen en la instalacion minima)
+  community.general.zypper:
+    name:
+      - tar
+      - gzip
+    state: present
+
 - name: Descargar phpMyAdmin
   ansible.builtin.get_url:
     url: "{{ phpmyadmin_url }}"
